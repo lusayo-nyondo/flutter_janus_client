@@ -137,12 +137,13 @@ class JanusVideoRoomPlugin extends JanusPlugin {
 
   ///  Used to create a new video room
   Future<dynamic> createRoom(dynamic roomId,
-      {bool permanent = false, String? pin, Map<String, dynamic>? extras, List<String>? allowed, String? isPrivate, String description = '', String? secret}) async {
+      {bool permanent = false, String? pin, Map<String, dynamic>? extras, List<String>? allowed, String? isPrivate, String description = '', String? secret, int? maxPublishers}) async {
     var payload = {"request": "create", "room": roomId, "permanent": permanent, "description": description, ...?extras};
     if (allowed != null) payload["allowed"] = allowed;
     if (isPrivate != null) payload["is_private"] = isPrivate;
     if (secret != null) payload['secret'] = secret;
     if (pin != null) payload['pin'] = pin;
+	if (maxPublishers != null) payload['new_publishers'] = maxPublishers;
     _handleRoomIdTypeDifference(payload);
     return (await this.send(data: payload));
   }
