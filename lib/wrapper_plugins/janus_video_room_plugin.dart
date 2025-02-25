@@ -115,6 +115,18 @@ class JanusVideoRoomPlugin extends JanusPlugin {
     _handleRoomIdTypeDifference(payload);
     return (await this.send(data: payload));
   }
+  
+  /// Used to check if a room already exists.
+  Future<dynamic> checkRoomExists(dynamic roomId) async {
+    var payload = {
+      "request": "exists",
+      "room": roomId,
+    };
+
+    _handleRoomIdTypeDifference(payload);
+
+    return (await this.send(data: payload));
+  }
 
   /// Used to destroy an existing video room, whether created dynamically or statically
   Future<dynamic> destroyRoom(dynamic roomId, {String? secret, bool? permanent}) async {
